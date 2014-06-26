@@ -12,6 +12,9 @@
 		261A7F1B195BB1D900718DCD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 261A7F19195BB1D900718DCD /* Main.storyboard */; };
 		261A7F1D195BB1D900718DCD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 261A7F1C195BB1D900718DCD /* Images.xcassets */; };
 		261A7F29195BB1D900718DCD /* RegionMonitoringSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 261A7F28195BB1D900718DCD /* RegionMonitoringSwiftTests.swift */; };
+		261A7F39195BB93100718DCD /* BeaconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 261A7F38195BB93100718DCD /* BeaconManager.swift */; };
+		261A7F3C195BB9A900718DCD /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 261A7F3A195BB9A900718DCD /* LICENSE */; };
+		261A7F3D195BB9A900718DCD /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 261A7F3B195BB9A900718DCD /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +37,9 @@
 		261A7F22195BB1D900718DCD /* RegionMonitoringSwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RegionMonitoringSwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		261A7F27195BB1D900718DCD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		261A7F28195BB1D900718DCD /* RegionMonitoringSwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionMonitoringSwiftTests.swift; sourceTree = "<group>"; };
+		261A7F38195BB93100718DCD /* BeaconManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconManager.swift; sourceTree = "<group>"; };
+		261A7F3A195BB9A900718DCD /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		261A7F3B195BB9A900718DCD /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +63,8 @@
 		261A7F07195BB1D900718DCD = {
 			isa = PBXGroup;
 			children = (
+				261A7F3A195BB9A900718DCD /* LICENSE */,
+				261A7F3B195BB9A900718DCD /* README.md */,
 				261A7F12195BB1D900718DCD /* RegionMonitoringSwift */,
 				261A7F25195BB1D900718DCD /* RegionMonitoringSwiftTests */,
 				261A7F11195BB1D900718DCD /* Products */,
@@ -121,6 +129,7 @@
 		261A7F33195BB66A00718DCD /* iBeacon */ = {
 			isa = PBXGroup;
 			children = (
+				261A7F38195BB93100718DCD /* BeaconManager.swift */,
 			);
 			name = iBeacon;
 			sourceTree = "<group>";
@@ -210,6 +219,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				261A7F3C195BB9A900718DCD /* LICENSE in Resources */,
 				261A7F1B195BB1D900718DCD /* Main.storyboard in Resources */,
 				261A7F1D195BB1D900718DCD /* Images.xcassets in Resources */,
 			);
@@ -230,6 +240,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				261A7F18195BB1D900718DCD /* ViewController.swift in Sources */,
+				261A7F39195BB93100718DCD /* BeaconManager.swift in Sources */,
+				261A7F3D195BB9A900718DCD /* README.md in Sources */,
 				261A7F16195BB1D900718DCD /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
