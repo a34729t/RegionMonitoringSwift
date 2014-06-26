@@ -75,9 +75,8 @@
 		261A7F12195BB1D900718DCD /* RegionMonitoringSwift */ = {
 			isa = PBXGroup;
 			children = (
-				261A7F15195BB1D900718DCD /* AppDelegate.swift */,
-				261A7F17195BB1D900718DCD /* ViewController.swift */,
-				261A7F19195BB1D900718DCD /* Main.storyboard */,
+				261A7F33195BB66A00718DCD /* iBeacon */,
+				261A7F32195BB65F00718DCD /* UI */,
 				261A7F1C195BB1D900718DCD /* Images.xcassets */,
 				261A7F13195BB1D900718DCD /* Supporting Files */,
 			);
@@ -87,6 +86,7 @@
 		261A7F13195BB1D900718DCD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				261A7F15195BB1D900718DCD /* AppDelegate.swift */,
 				261A7F14195BB1D900718DCD /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -107,6 +107,22 @@
 				261A7F27195BB1D900718DCD /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		261A7F32195BB65F00718DCD /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				261A7F19195BB1D900718DCD /* Main.storyboard */,
+				261A7F17195BB1D900718DCD /* ViewController.swift */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		261A7F33195BB66A00718DCD /* iBeacon */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = iBeacon;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -158,6 +174,11 @@
 				TargetAttributes = {
 					261A7F0F195BB1D900718DCD = {
 						CreatedOnToolsVersion = 6.0;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					261A7F21195BB1D900718DCD = {
 						CreatedOnToolsVersion = 6.0;
