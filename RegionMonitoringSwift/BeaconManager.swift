@@ -56,6 +56,14 @@ class BeaconManager: NSObject, CLLocationManagerDelegate    {
         locationManager.requestStateForRegion(region); // should locationManager be manager?
     }
     
+    func locationManager(manager: CLLocationManager, didEnterRegion:CLRegion) {
+        println("BM didEnterRegion \(didEnterRegion)");
+    }
+    
+    func locationManager(manager: CLLocationManager, didExitRegion:CLRegion) {
+        println("BM didExitRegion \(didExitRegion)");
+    }
+    
     func locationManager(manager: CLLocationManager!, didDetermineState state: CLRegionState, forRegion region: CLRegion!) {
         println("BM didDetermineState \(state)");
         

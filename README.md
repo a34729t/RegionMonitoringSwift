@@ -16,3 +16,8 @@ This works on an iPhone 4S running iOS 7.1, with Estimote iBeacons.
 I am using CoreLocation, which is the only accepted way of interating with iBeacons. CoreBluetooth doesn't give you the background capabilities needed in a distance-aware app. 
 
 CoreLocation gives you iBeacon class (proximity UUID), major and minor (think of them as ways to give an iBeacon a unique ID). CoreBluetooth gives you only a deviceUUID. In fact, the information available to CoreLocation and CoreBluetooth is  mutually exclusive- they handle the iBeacon advertisements differently.
+
+# TODO
+
+* Add local notifications on CLRegion entry/exit in background mode
+* Make UI not suck
