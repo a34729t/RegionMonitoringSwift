@@ -16,6 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
         // Override point for customization after application launch.
+        application.applicationIconBadgeNumber = 0
+
         return true
     }
 
@@ -43,20 +45,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // Local notification stuff
 
-    func application(application: UIApplication!, didFinishLaunchingWithOptions launchOptions: NSDictionary!) -> Bool {
-
-        if let localNotification = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey] {
-            // Do nothing, it's fine to ignore this for a simple app
-        } else {
-            application.applicationIconBadgeNumber = 0
-        }
-        return true;
-    }
-
-    // Application is not running, so badge it
     func application(application: UIApplication!, didReceiveLocalNotification notification: UILocalNotification!) {
         if (application.applicationState == UIApplicationState.Background) {
-            application.applicationIconBadgeNumber++
+            application.applicationIconBadgeNumber++ // Application is not running, so badge it
         }
     }
 
