@@ -118,7 +118,7 @@ class ViewController: UIViewController, BeaconManagerDelegate {
 
     func didExitRegion(regionIdentifier: String) {
         println("VC didExitRegion \(regionIdentifier)")
-        self.beaconList[regionIdentifier] = false
+        self.beaconList[regionIdentifier] = nil
         self.setUI()
     }
 
