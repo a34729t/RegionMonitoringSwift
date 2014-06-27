@@ -114,6 +114,7 @@ class ViewController: UIViewController, BeaconManagerDelegate {
         println("VC didEnterRegion \(regionIdentifier)")
         self.beaconList[regionIdentifier] = true
         self.setUI()
+        sendNotification("Entered region \(regionIdentifier)") // Only send notification when we enter
     }
 
     func didExitRegion(regionIdentifier: String) {
@@ -225,6 +226,6 @@ class ViewController: UIViewController, BeaconManagerDelegate {
 
         return imageView;
     }
-    
+
 }
 

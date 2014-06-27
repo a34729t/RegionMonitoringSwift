@@ -22,6 +22,9 @@ let menuImgOn = filledImageFrom(image: menuIconImage, UIColor.whiteColor())
 let scanImgOff = filledImageFrom(image: scanIconImage, UIColor.grayColor())
 let scanImgOn = filledImageFrom(image: scanIconImage, UIColor.whiteColor())
 
+// local notifications
+let NOTIF_KEY = "WILLIAM_GIBSON_IS_AWESOME"
+
 func makeMenuButton(#image: UIImage, #left: Bool, #size: CGSize) -> UIButton {
     let menuWidth: CGFloat = 150/3;
     let menuHeight: CGFloat = 133/3;
@@ -69,4 +72,21 @@ func filledImageFrom(#image:UIImage, color:UIColor) -> UIImage {
 
     //return the color-burned image
     return coloredImg
+}
+
+func sendNotification(message: String) {
+    let notification:UILocalNotification = UILocalNotification()
+    let timeZone = NSTimeZone.defaultTimeZone()
+
+    notification.fireDate = NSDate()
+    notification.timeZone = timeZone
+    notification.alertBody = message;
+    notification.alertAction = "Show";  //creates button that launches app
+    notification.soundName = UILocalNotificationDefaultSoundName;
+    notification.applicationIconBadgeNumber = UIApplication.sharedApplication().applicationIconBadgeNumber + 1
+
+    // to pass information with notification
+    let userDict:Dictionary = [NOTIF_KEY:message]
+    notification.userInfo = userDict;
+    UIApplication.sharedApplication().scheduleLocalNotification(notification);
 }

@@ -41,6 +41,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    // Local notification stuff
+
+    func application(application: UIApplication!, didFinishLaunchingWithOptions launchOptions: NSDictionary!) -> Bool {
+
+        if let localNotification = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey] {
+            // Do nothing, it's fine to ignore this for a simple app
+        } else {
+            application.applicationIconBadgeNumber = 0
+        }
+        return true;
+    }
+
+    // Application is not running, so badge it
+    func application(application: UIApplication!, didReceiveLocalNotification notification: UILocalNotification!) {
+        if (application.applicationState == UIApplicationState.Background) {
+            application.applicationIconBadgeNumber++
+        }
+    }
 
 }
 
