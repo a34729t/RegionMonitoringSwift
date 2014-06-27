@@ -10,15 +10,20 @@ import CoreLocation
 import UIKit
 import QuartzCore
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, BeaconManagerDelegate {
     // Singleton to manage location updates/ranging
     var beaconManager: BeaconManager?
+    var beaconList = Dictionary<String, Bool>() // major+minor -> yes or no
 
     // UI elements
     var beaconView: UIImageView?
     var beaconView2: UIImageView?
     var circleView: UIView?
     var label: UILabel?
+    var scanButton: UIButton?
+
+    // General config
+    var scanMode: Bool = false
 
     // UI colors and images
     // let blueColor:UIColor = UIColor(red: 0.42, green: 0.75, blue: 0.87, alpha: 1.0) // No blue iBeacon
@@ -29,6 +34,7 @@ class ViewController: UIViewController {
     let beaconGreen = UIImage(named: "beaconGreen.png")
     let beaconPurple = UIImage(named: "beaconPurple.png")
 
+
     override func viewDidLoad() {
         println("viewDidLoad")
         
@@ -36,7 +42,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view
 
         // Configure UI
-        self.setUI(nil) // Default, not in any region
+        self.setUI() // Default, not in any region
         self.view.addSubview(self.circleView)
         self.view.addSubview(self.beaconView)
         self.view.addSubview(self.beaconView2) // only when we are in both regions
@@ -44,10 +50,15 @@ class ViewController: UIViewController {
 
         
         self.beaconManager = sharedBeaconManager
-        //        self.beaconManager!.start()
         if !CLLocationManager.locationServicesEnabled() {
             // TODO: Alert, once alerts work without crashing app
         }
+
+        // Make scan button (antenna)
+        let scanButton: UIButton = makeMenuButton(image: scanImgOff, left:false, size:self.view.frame.size)
+        scanButton.addTarget(self, action: "scanButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
+        self.view.addSubview(scanButton)
+        self.scanButton = scanButton
 
     }
 
@@ -56,20 +67,59 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    // Button Handler
+    func scanButtonClicked(sender: UIButton!) {
+        println("scanButtonClicked")
+
+        // Change 1) color of button 2) enable/disable beacon manager
+        if self.scanMode {
+            self.scanButton!.setImage(scanImgOff, forState: UIControlState.Normal)
+            self.beaconManager!.stop()
+            self.beaconManager!.delegate = nil
+        } else {
+            self.scanButton!.setImage(scanImgOn, forState: UIControlState.Normal)
+            self.beaconManager!.start()
+            self.beaconManager!.delegate = self
+        }
+
+        // Toggle scan mode
+        self.scanMode = !self.scanMode
+    }
+
+
+    // BeaconManager Delegates and Helpers
+    func insideRegion(regionIdentifier: String) {
+        println("VC insideRegion \(regionIdentifier)")
+        self.beaconList[regionIdentifier] = true
+        self.setUI()
+    }
+
+    func didEnterRegion(regionIdentifier: String) {
+        println("VC didEnterRegion \(regionIdentifier)")
+        self.beaconList[regionIdentifier] = true
+        self.setUI()
+    }
+
+    func didExitRegion(regionIdentifier: String) {
+        println("VC didExitRegion \(regionIdentifier)")
+        self.beaconList[regionIdentifier] = false
+        self.setUI()
+    }
+
     // Generate the proper UI depending on the color passed in
-    func setUI(color:UIColor?) {
-        switch color? {
-        case .Some(let optionalColor) where optionalColor == greenColor:
+    func setUI() {
+        switch (self.beaconList["green"], self.beaconList["purple"]) {
+        case (let green, .None):
             self.beaconView = drawBeacon(beaconGreen)
             self.beaconView2 = nil
             self.circleView = drawCircle(greenColor)
             self.label = drawLabel(greenColor, message: "Inside Green Region")
-        case .Some(let optionalColor) where optionalColor == purpleColor:
+        case (.None, let purple):
             self.beaconView = drawBeacon(beaconPurple)
             self.beaconView2 = nil
             self.circleView = drawCircle(purpleColor)
             self.label = drawLabel(purpleColor, message: "Inside Purple Region")
-        case .Some(let optionalColor) where optionalColor == bothColor:
+        case (let green, let purple):
             self.beaconView = drawBeacon(beaconGreen, left: true)
             self.beaconView2 = drawBeacon(beaconPurple, left: false)
             self.circleView = drawCircle(bothColor)
@@ -82,7 +132,7 @@ class ViewController: UIViewController {
         }
     }
 
-    // View Helpers
+    // View Helpers (move to utils?)
 
     func drawLabel(color:UIColor, message:String) -> UILabel {
         var label = UILabel(frame: CGRectMake(0, 0, 400, 100))
