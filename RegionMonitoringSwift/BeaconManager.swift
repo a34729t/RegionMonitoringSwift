@@ -9,9 +9,7 @@
 import CoreLocation
 import UIKit
 
-// config
 // General search criteria for beacons that are broadcasting
-let BEACON_SERVICE_NAME = "estimote"
 let BEACON_PROXIMITY_UUID = NSUUID(UUIDString: "B9407F30-F5F8-466E-AFF9-25556B57FE6D")
 
 // Beacons are hardcoded into our app so we can easily filter for them in a noisy environment
@@ -89,7 +87,7 @@ class BeaconManager: NSObject, CLLocationManagerDelegate    {
     }
 
     func locationManager(manager: CLLocationManager!, didRangeBeacons beacons: CLBeacon[]!, inRegion region: CLBeaconRegion!) {
-//        println("BM didRangeBeacons");
+        // This is needed for region enter/exit
     }
 }
 

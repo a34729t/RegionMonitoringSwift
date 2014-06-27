@@ -125,7 +125,7 @@ class ViewController: UIViewController, BeaconManagerDelegate {
 
     // Generate the proper UI depending on the color passed in
     func setUI() {
-
+        // TODO: Refactor
         if let green = self.beaconList["green"] {
             if let purple = self.beaconList["purple"] {
                 // green and purple

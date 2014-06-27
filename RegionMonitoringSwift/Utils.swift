@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 // Image constants
-//let backgroundImage = UIImage(named: "sandycay")
 let menuIconImage = UIImage(named: "menuIcon.png")
 let scanIconImage = UIImage(named: "scanIcon.png")
 let beaconGreen = UIImage(named: "beaconGreen.png")
