@@ -20,4 +20,4 @@ CoreLocation gives you iBeacon class (proximity UUID), major and minor (think of
 # TODO
 
 * Add local notifications on CLRegion entry/exit in background mode
-* Make UI not suck
+* Make BeaconMananger aware of all the regions we are inside/outside of (use NSUserDefaults for each region)
