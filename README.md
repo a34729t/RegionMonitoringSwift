@@ -19,5 +19,6 @@ CoreLocation gives you iBeacon class (proximity UUID), major and minor (think of
 
 # TODO
 
+* Make scan button change color properly!
 * Add local notifications on CLRegion entry/exit in background mode
 * Make BeaconMananger aware of all the regions we are inside/outside of (use NSUserDefaults for each region)

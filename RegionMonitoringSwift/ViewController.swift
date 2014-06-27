@@ -16,11 +16,13 @@ class ViewController: UIViewController, BeaconManagerDelegate {
     var beaconList = Dictionary<String, Bool>() // major+minor -> yes or no
 
     // UI elements
-    var beaconView: UIImageView?
-    var beaconView2: UIImageView?
+    var greenBeaconView: UIImageView?
+    var purpleBeaconView: UIImageView?
+    var greenBeaconDualView: UIImageView?
+    var purpleBeaconDualView: UIImageView?
     var circleView: UIView?
     var label: UILabel?
-    var scanButton: UIButton?
+    var scanButton: UIButton? // this is always on screen
 
     // General config
     var scanMode: Bool = false
@@ -42,12 +44,25 @@ class ViewController: UIViewController, BeaconManagerDelegate {
         // Do any additional setup after loading the view
 
         // Configure UI
-        self.setUI() // Default, not in any region
-        self.view.addSubview(self.circleView)
-        self.view.addSubview(self.beaconView)
-        self.view.addSubview(self.beaconView2) // only when we are in both regions
-        self.view.addSubview(self.label)
+        self.label = drawLabel(UIColor.whiteColor(), message: "Not in any Region")
+        self.circleView = drawCircle(UIColor.blackColor())
 
+        self.greenBeaconView = drawBeacon(beaconGreen)
+        self.purpleBeaconView = drawBeacon(beaconPurple)
+        self.greenBeaconDualView = drawBeacon(beaconGreen, left: true)
+        self.purpleBeaconDualView = drawBeacon(beaconPurple, left: false)
+
+        self.greenBeaconView!.hidden = true
+        self.purpleBeaconView!.hidden = true
+        self.greenBeaconDualView!.hidden = true
+        self.purpleBeaconDualView!.hidden = true
+
+        self.view.addSubview(self.circleView!)
+        self.view.addSubview(self.greenBeaconView!)
+        self.view.addSubview(self.purpleBeaconView!)
+        self.view.addSubview(self.greenBeaconDualView!) // only when we are in both regions
+        self.view.addSubview(self.purpleBeaconDualView!) // only when we are in both regions
+        self.view.addSubview(self.label!)
         
         self.beaconManager = sharedBeaconManager
         if !CLLocationManager.locationServicesEnabled() {
@@ -76,6 +91,7 @@ class ViewController: UIViewController, BeaconManagerDelegate {
             self.scanButton!.setImage(scanImgOff, forState: UIControlState.Normal)
             self.beaconManager!.stop()
             self.beaconManager!.delegate = nil
+            beaconList = Dictionary<String, Bool>() // wipe out dictionary
         } else {
             self.scanButton!.setImage(scanImgOn, forState: UIControlState.Normal)
             self.beaconManager!.start()
@@ -84,12 +100,12 @@ class ViewController: UIViewController, BeaconManagerDelegate {
 
         // Toggle scan mode
         self.scanMode = !self.scanMode
+        self.setUI()
     }
-
 
     // BeaconManager Delegates and Helpers
     func insideRegion(regionIdentifier: String) {
-        println("VC insideRegion \(regionIdentifier)")
+//        println("VC insideRegion \(regionIdentifier)")
         self.beaconList[regionIdentifier] = true
         self.setUI()
     }
@@ -108,27 +124,43 @@ class ViewController: UIViewController, BeaconManagerDelegate {
 
     // Generate the proper UI depending on the color passed in
     func setUI() {
-        switch (self.beaconList["green"], self.beaconList["purple"]) {
-        case (let green, .None):
-            self.beaconView = drawBeacon(beaconGreen)
-            self.beaconView2 = nil
-            self.circleView = drawCircle(greenColor)
-            self.label = drawLabel(greenColor, message: "Inside Green Region")
-        case (.None, let purple):
-            self.beaconView = drawBeacon(beaconPurple)
-            self.beaconView2 = nil
-            self.circleView = drawCircle(purpleColor)
-            self.label = drawLabel(purpleColor, message: "Inside Purple Region")
-        case (let green, let purple):
-            self.beaconView = drawBeacon(beaconGreen, left: true)
-            self.beaconView2 = drawBeacon(beaconPurple, left: false)
-            self.circleView = drawCircle(bothColor)
-            self.label = drawLabel(bothColor, message: "Inside Both Regions")
-        default:
-            self.beaconView = nil
-            self.beaconView2 = nil
-            self.circleView = nil
-            self.label = drawLabel(UIColor.whiteColor(), message: "Not in any Region")
+
+        if let green = self.beaconList["green"] {
+            if let purple = self.beaconList["purple"] {
+                // green and purple
+                self.greenBeaconView!.hidden = true
+                self.purpleBeaconView!.hidden = true
+                self.greenBeaconDualView!.hidden = false
+                self.purpleBeaconDualView!.hidden = false
+                self.circleView!.backgroundColor = bothColor
+                self.label!.text = "Inside Both Regions"
+            } else {
+                // green but not purple
+                self.greenBeaconView!.hidden = false
+                self.purpleBeaconView!.hidden = true
+                self.greenBeaconDualView!.hidden = true
+                self.purpleBeaconDualView!.hidden = true
+                self.circleView!.backgroundColor = greenColor
+                self.label!.text = "Inside Green Region"
+            }
+        } else {
+            if let purple = self.beaconList["purple"] {
+                // purple but not green
+                self.greenBeaconView!.hidden = true
+                self.purpleBeaconView!.hidden = false
+                self.greenBeaconDualView!.hidden = true
+                self.purpleBeaconDualView!.hidden = true
+                self.circleView!.backgroundColor = purpleColor
+                self.label!.text = "Inside Purple Region"
+            } else {
+                // neither green nor purple
+                self.greenBeaconView!.hidden = true
+                self.purpleBeaconView!.hidden = true
+                self.greenBeaconDualView!.hidden = true
+                self.purpleBeaconDualView!.hidden = true
+                self.circleView!.backgroundColor = UIColor.blackColor()
+                self.label!.text = "Not in any Region"
+            }
         }
     }
 
