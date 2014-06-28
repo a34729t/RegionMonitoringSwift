@@ -3,8 +3,8 @@ Region Monitoring (in Swift)
 
 iBeacon region monitoring, in Swift. The app uses two regions, defined by hardcoded iBeacons (purple and green estimote, respectively). The app recognizes the location as being in neither of these regions, either of them or both. It also sends local notifications on entering a region.
 
-![purple](screenshot_region_monitoring_both.png "Purple region")
-![neither](screenshot_region_monitoring_purple.png "Neither region")
+![purple](screenshot_region_monitoring_purple.png "Purple region")
+![neither](screenshot_region_monitoring_none.png "Neither region")
 
 ## Design
 
