@@ -3,6 +3,9 @@ Region Monitoring (in Swift)
 
 iBeacon region monitoring, in Swift. The app uses two regions, defined by hardcoded iBeacons (purple and green estimote, respectively). The app recognizes the location as being in neither of these regions, either of them or both. It also sends local notifications on entering a region.
 
+![purple](screenshot_region_monitoring_both.png "Purple region")
+![neither](screenshot_region_monitoring_purple.png "Neither region")
+
 ## Design
 
 The app centers around a singleton BeaconManager class, which tells the app about beacons that have been discovered. This is more or less copied from my triangulation app (https://https://github.com/a34729t/TriangulatorSwift) with the addition or region entry/exit delegate methods. And of course, background mode is enabled, and the background capabilties are enabled (detects BLE accessories, and location updates). Local notificiation and bading is handled in Utils.swift and AppDelegate.swift.
